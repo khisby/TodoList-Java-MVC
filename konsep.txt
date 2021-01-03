@@ -1,0 +1,23 @@
+Aplikasi Todo List
+
+Fitur : 
+1. User bisa registrasi
+2. User bisa Login
+3. User bisa Logout
+4. User bisa create list
+5. User bisa remove list
+6. User bisa geser List ke Todo/Working/Done
+
+Entitiy
+1. Todo
+2. User
+
+Model
+1. TodoModel
+2. UserModel
+
+Controller
+1. AuthController
+2. TodoController
+
+Main
