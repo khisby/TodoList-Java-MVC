@@ -1,3 +1,3 @@
 # TodoList-Java-MVC
 
-Project Tutorial Java MVC with GUI Java Sprint
+Project Tutorial Java MVC with GUI Java Swing
