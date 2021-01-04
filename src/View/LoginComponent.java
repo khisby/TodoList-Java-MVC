@@ -23,7 +23,7 @@ public class LoginComponent extends Component{
     private JButton JBlogin;
 
     public LoginComponent() {
-        GridLayout layout = new GridLayout(20,1);
+        GridLayout layout = new GridLayout(12,1, 5, 10);
         setLayout(layout);
         
         JTFnama = new JTextField();

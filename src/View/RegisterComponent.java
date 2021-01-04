@@ -16,12 +16,13 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import javax.swing.SwingConstants;
 
 /**
  *
  * @author khisby
  */
-public class RegisterComponent extends JPanel{
+public class RegisterComponent extends Component{
     private JTextField JTFnama;
     private JTextField JTFsandi;
     private JRadioButton JRBlaki;
@@ -31,7 +32,7 @@ public class RegisterComponent extends JPanel{
     private ButtonGroup BGjenis_kelamin;
     
     public RegisterComponent(){
-        GridLayout layout = new GridLayout(20,1);
+        GridLayout layout = new GridLayout(12,1, 5, 10);
         setLayout(layout);
 
         JTFnama = new JTextField();

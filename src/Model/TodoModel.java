@@ -6,6 +6,7 @@
 package Model;
 
 import Entity.Todo;
+import Entity.User;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,16 @@ public class TodoModel{
 
     public Todo getByIndex(int index) {
         return this.arr.get(index);
+    }
+    
+    public ArrayList<Todo> getAllByUser(User user){
+        ArrayList<Todo> arr = new ArrayList<Todo>();
+        for(Todo todo : this.arr){
+            if(todo.getUser().equals(user)){
+                arr.add(todo);
+            }
+        }
+        return arr;
     }
     
 }

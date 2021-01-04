@@ -18,45 +18,53 @@ import java.awt.event.ActionListener;
  *
  * @author khisby
  */
-public class AuthController{
+public class AuthController {
+
     private App app;
     private UserModel model;
     private View view;
-    
+
     public AuthController(App app) {
         this.model = app.user_model;
         this.view = app.view;
         this.app = app;
+        this.model.add(new User("khisby", "khisby", "Laki - Laki"));
     }
-    
-    public void register(){
+
+    public void register() {
         this.view.reset();
         RegisterComponent registerComponent = new RegisterComponent();
-        
+
         this.view.add(registerComponent);
         this.view.tampilkan();
-        
+
         registerComponent.getJBregister().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                User user = new User();
-                user.setNama(registerComponent.getJTFnama().getText());
-                user.setSandi(registerComponent.getJTFsandi().getText());
-                
-                String jenis_kelamin;
-                if(registerComponent.getJRBlaki().isSelected()){
-                    jenis_kelamin = "Laki - Laki";
-                }else{
-                    jenis_kelamin = "Perempuan";
+
+                if (registerComponent.getJTFnama().getText().equals("") || registerComponent.getJTFsandi().getText().equals("")) {
+                    registerComponent.showMessage("danger", "Isian Harus Di Isi Dengan Benar");
+                } else {
+                    User user = new User();
+                    user.setNama(registerComponent.getJTFnama().getText());
+                    user.setSandi(registerComponent.getJTFsandi().getText());
+
+                    String jenis_kelamin;
+                    if (registerComponent.getJRBlaki().isSelected()) {
+                        jenis_kelamin = "Laki - Laki";
+                    } else {
+                        jenis_kelamin = "Perempuan";
+                    }
+
+                    user.setJenis_kelamin(jenis_kelamin);
+                    model.add(user);
+                    registerComponent.showMessage("info", "Berhasil Registrasi. Silahkan Login");
+                    login();
                 }
-                
-                user.setJenis_kelamin(jenis_kelamin);
-                model.add(user);
-                login();
             }
         });
-        
+
         registerComponent.getJBlogin().addActionListener(new ActionListener() {
 
             @Override
@@ -65,14 +73,14 @@ public class AuthController{
             }
         });
     }
-    
-    public void login(){
+
+    public void login() {
         this.view.reset();
         LoginComponent loginComponent = new LoginComponent();
-        
+
         this.view.add(loginComponent);
         this.view.tampilkan();
-        
+
         loginComponent.getJBregister().addActionListener(new ActionListener() {
 
             @Override
@@ -80,30 +88,34 @@ public class AuthController{
                 register();
             }
         });
-        
+
         loginComponent.getJBlogin().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nama = loginComponent.getJTFnama().getText();
-                String sandi = loginComponent.getJTFsandi().getText();
-                
-                User user = null;
-                for(User u : model.getAll()){
-                    if(u.getNama().equals(nama) && u.getSandi().equals(sandi)){
-                        user = u;
+                if (loginComponent.getJTFnama().getText().equals("") || loginComponent.getJTFsandi().getText().equals("")) {
+                    loginComponent.showMessage("danger", "Isian Harus Di Isi Dengan Benar");
+                } else {
+                    String nama = loginComponent.getJTFnama().getText();
+                    String sandi = loginComponent.getJTFsandi().getText();
+
+                    User user = null;
+                    for (User u : model.getAll()) {
+                        if (u.getNama().equals(nama) && u.getSandi().equals(sandi)) {
+                            user = u;
+                        }
                     }
-                }
-                
-                if(user == null){
-                    loginComponent.showMessage("danger","Akun tidak ditemukan. Username Atau sandi Salah");
-                }else{
-                    app.session = user;
-                    System.out.println("Login User");   
-                    app.dashboard_controller.todo();
+
+                    if (user == null) {
+                        loginComponent.showMessage("danger", "Akun tidak ditemukan. Username Atau sandi Salah");
+                    } else {
+                        app.session = user;
+                        loginComponent.showMessage("info", "Berhasil Login");
+                        app.dashboard_controller.todo();
+                    }
                 }
             }
         });
     }
-    
+
 }
