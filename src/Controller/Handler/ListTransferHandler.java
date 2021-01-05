@@ -41,7 +41,7 @@ public class ListTransferHandler extends TransferHandler {
             JList sources = (JList) source;
             DefaultListModel listModel = (DefaultListModel) sources.getModel();
             int index_number = sources.getSelectedIndex();
-//            listModel.remove(sources.getSelectedIndex());
+            listModel.remove(sources.getSelectedIndex());
 
             int index = -1;
             for (int i = 0; i < this.model.getAll().size(); i++) {
@@ -54,6 +54,7 @@ public class ListTransferHandler extends TransferHandler {
 
                         if (index == index_number) {
                             model.remove(i);
+                            this.app.dashboard_controller.todo();
                         }
                     }
                 }
@@ -97,15 +98,15 @@ public class ListTransferHandler extends TransferHandler {
             return false;
         }
 
-//        DefaultListModel listModel = (DefaultListModel) list.getModel();
-//        JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
-//        int index = dl.getIndex();
-//
-//        listModel.add(index, data);
+        DefaultListModel listModel = (DefaultListModel) list.getModel();
+        JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
+        int index = dl.getIndex();
+
+        listModel.add(index, data);
         
-        this.model.add(new Todo(data, this.list_number, this.user));
+//        this.model.add(new Todo(data, this.list_number, this.user));
         
-        this.app.dashboard_controller.todo();
+//        this.app.dashboard_controller.todo();
         return true;
     }
 
